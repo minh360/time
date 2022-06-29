@@ -11,7 +11,7 @@
             const timeDisplay = document.getElementById("title");
             const hour = new Date().getHours()
             const minute = new Date().getMinutes()
-            timeDisplay.innerHTML = 'Time.is ' + hour +':'+ minute
+            timeDisplay.innerHTML = 'Time.is ' + (hour <= 9 ? '0'+hour : hour) +':'+ (minute <= 9 ? '0'+minute : minute)
         }
         setTimeout(setTime,0)
         setInterval(setTime,1000)
