@@ -1,15 +1,16 @@
 <script setup>
 import {ref,defineProps} from "vue";
 import {useRouter} from 'vue-router';
+import {PAGES} from "@/components/ActiveMenu";
 const router = useRouter()
 defineProps({
-  id: Number
+  activeItem: Number
 })
 const menuList = ref([
-  {_id: 1, name: 'Giờ chính xác hiện tại', onClick: ()=>{
+  {_id: PAGES.HOME, name: 'Giờ chính xác hiện tại', onClick: ()=>{
       router.push({name: 'home'})
   }},
-  {_id: 2, name: 'Stop Watch', onClick: ()=>{
+  {_id: PAGES.STOP_WATCH, name: 'Stop Watch', onClick: ()=>{
       router.push('/stop-watch')
   }}
 ])
@@ -24,7 +25,7 @@ const menuList = ref([
     </div>
     <section class="box-wrapper">
       <div class="col-1">
-        <p v-for="item in menuList" :key="item._id" :class="{active: id === item._id}">
+        <p v-for="item in menuList" :key="item._id" :class="{active: activeItem === item._id}">
           <a @click="item.onClick">{{item.name}}</a>
         </p>
       </div>
@@ -81,7 +82,7 @@ const menuList = ref([
       }
       .active{
         a{
-          background-color: white !important;
+          background-color: white;
           margin-left: -10px !important;
           padding: 4px 10px;
           color: black;

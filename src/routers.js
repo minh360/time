@@ -1,5 +1,5 @@
-import HomePage from '@/pages/HomePage'
-import StopWatchPage from '@/pages/StopWatchPage'
+import HomePage from '@/components/pages/HomePage'
+import StopWatchPage from '@/components/pages/StopWatchPage'
 export default [
     {
         path: '/',
