@@ -4,8 +4,12 @@ module.exports = {
         slogan: 'Thời gian chính xác cho bất kỳ múi giờ nào',
         menu: {
             exact_time_now: 'Giờ chính xác hiện tại',
-            stop_watch: 'Bộ đếm ngược',
+            timer: 'Bộ đếm thời gian',
             something: 'Thứ gì đó?'
+        },
+        options: {
+            stopwatch: 'Bấm giờ',
+            countdown: 'Đếm ngược',
         },
         title : 'Thời gian ở Việt Nam hiện tại',
         time : {

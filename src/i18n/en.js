@@ -4,8 +4,12 @@ module.exports = {
         slogan: 'Exact time for any time zone',
         menu:{
             exact_time_now: 'Exact time now',
-            stop_watch: 'Stop Watch',
+            timer: 'Timer',
             something: 'Something'
+        },
+        options: {
+            stopwatch: 'Stopwatch',
+            countdown: 'Countdown'
         },
         title: 'Time in VietNam now',
         time: {

@@ -1,7 +1,7 @@
 <script setup>
 import {ref,defineProps} from "vue";
 import {useRouter} from 'vue-router';
-import {PAGES} from "@/components/ActiveMenu";
+import {PAGES} from "@/components/Statuses";
 const router = useRouter()
 defineProps({
   activeItem: Number
@@ -11,8 +11,8 @@ const menuList = ref([
   {_id: PAGES.HOME, name: 'exact_time_now', onClick: ()=>{
       router.push({name: 'home'})
   }},
-  {_id: PAGES.STOP_WATCH, name: 'stop_watch', onClick: ()=>{
-      router.push('/stop-watch')
+  {_id: PAGES.STOP_WATCH, name: 'timer', onClick: ()=>{
+      router.push('/timer')
   }}
 ])
 </script>
@@ -43,7 +43,7 @@ const menuList = ref([
       <div class="col-4">
         <p>{{ $t('language')}}</p>
         <select v-model="$i18n.locale" style="height: 50px;width: 200px">
-          <option v-for="(locale, i) in language" :key="`locale-${i}`" :value="locale.value">
+          <option v-for="locale in language" :key="locale.name" :value="locale.value">
             {{ $t(locale.name) }}
           </option>
         </select>

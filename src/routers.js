@@ -1,5 +1,5 @@
 import HomePage from '@/components/pages/HomePage'
-import StopWatchPage from '@/components/pages/StopWatchPage'
+import TimerPage from '@/components/pages/TimerPage'
 export default [
     {
         path: '/',
@@ -7,8 +7,8 @@ export default [
         component: HomePage
     },
     {
-        path: '/stop-watch',
-        name: 'stop-watch',
-        component: StopWatchPage
+        path: '/timer',
+        name: 'timer',
+        component: TimerPage
     }
 ]

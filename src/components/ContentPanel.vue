@@ -28,7 +28,7 @@ const mainStyle = computed(()=>({
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     .logo{
       text-transform: uppercase;
       font-weight: 600;
