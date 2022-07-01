@@ -81,6 +81,7 @@ const milliseconds = computed(() => {
 }
 .btn {
   display: flex;
+  margin-top: 20px;
   justify-content: space-around;
 
   button {
