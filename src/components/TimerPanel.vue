@@ -33,11 +33,13 @@ const milliseconds = computed(() => {
 </script>
 
 <template>
-  <div class="clock" :class="{blinker: lastTotalMili === 0 && option === OPTIONS.COUNTDOWN}">
-    {{ hours > 9 ? hours : '0' + hours }}:{{ minutes > 9 ? minutes : '0' + minutes }}:{{ seconds > 9 ? seconds : '0' + seconds }}
-  </div>
-  <div class="milliseconds" :class="{blinker: lastTotalMili === 0 && option === OPTIONS.COUNTDOWN}">
-    {{ milliseconds === 0 ? '000' : milliseconds }}
+  <div :class="{blinker: lastTotalMili === 0 && option === OPTIONS.COUNTDOWN}">
+    <div class="clock" >
+      {{ hours > 9 ? hours : '0' + hours }}:{{ minutes > 9 ? minutes : '0' + minutes }}:{{ seconds > 9 ? seconds : '0' + seconds }}
+    </div>
+    <div class="milliseconds">
+      {{ milliseconds === 0 ? '000' : milliseconds }}
+    </div>
   </div>
   <div class="btn">
     <button v-if="status === STATUSES.NOT_STARTED" style="background-color: chartreuse" @click="emits('beginClock')">{{ $t('time.begin')}}
@@ -59,11 +61,10 @@ const milliseconds = computed(() => {
 }
 .milliseconds, .clock{
   font-family: Montserrat, Arial, sans-serif;
-  &.blinker{
-    animation: blinker 1s linear infinite;
-  }
 }
-
+.blinker{
+  animation: blinker 1s linear infinite;
+}
 .clock {
   font-size: 250px;
   line-height: 237px;
