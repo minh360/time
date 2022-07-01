@@ -1,6 +1,6 @@
 module.exports = {
     en: {
-        en: 'English',
+        language: 'Language',
         slogan: 'Exact time for any time zone',
         menu:{
             exact_time_now: 'Exact time now',

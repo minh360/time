@@ -41,7 +41,7 @@ const menuList = ref([
         <p><a>{{$t("menu.something")}}</a></p>
       </div>
       <div class="col-4">
-        <p>Language</p>
+        <p>{{ $t('language')}}</p>
         <select v-model="$i18n.locale" style="height: 50px;width: 200px">
           <option v-for="(locale, i) in language" :key="`locale-${i}`" :value="locale.value">
             {{ $t(locale.name) }}

@@ -1,6 +1,6 @@
 module.exports = {
     vi: {
-        vi: 'Vietnamese',
+        language: 'Ngôn ngữ',
         slogan: 'Thời gian chính xác cho bất kỳ múi giờ nào',
         menu: {
             exact_time_now: 'Giờ chính xác hiện tại',
