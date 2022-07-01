@@ -68,13 +68,13 @@ onMounted(() => {
       {{ milliseconds === 0 ? '000' : milliseconds }}
     </div>
     <div class="btn">
-      <button v-show="status === STATUSES.NOT_STARTED" style="background-color: chartreuse" @click="beginClock">Start
+      <button v-show="status === STATUSES.NOT_STARTED" style="background-color: chartreuse" @click="beginClock">{{ $t('time.begin')}}
       </button>
-      <button v-show="status === STATUSES.STARTED" style="background-color: chartreuse" @click="stopClock">Pause
+      <button v-show="status === STATUSES.STARTED" style="background-color: chartreuse" @click="stopClock">{{ $t('time.pause')}}
       </button>
-      <button v-show="status === STATUSES.PAUSE" style="background-color: deepskyblue" @click="beginClock">Continue
+      <button v-show="status === STATUSES.PAUSE" style="background-color: deepskyblue" @click="beginClock">{{ $t('time.continue')}}
       </button>
-      <button style="background-color: red" @click="setTime">Clear</button>
+      <button style="background-color: red" @click="setTime">{{ $t('time.clear')}}</button>
     </div>
   </content-panel>
 </template>

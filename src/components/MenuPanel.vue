@@ -6,11 +6,12 @@ const router = useRouter()
 defineProps({
   activeItem: Number
 })
+const language = ref([{name:'English',value:'en'},{name:'Vietnamese',value:'vi'}])
 const menuList = ref([
-  {_id: PAGES.HOME, name: 'Giờ chính xác hiện tại', onClick: ()=>{
+  {_id: PAGES.HOME, name: 'exact_time_now', onClick: ()=>{
       router.push({name: 'home'})
   }},
-  {_id: PAGES.STOP_WATCH, name: 'Stop Watch', onClick: ()=>{
+  {_id: PAGES.STOP_WATCH, name: 'stop_watch', onClick: ()=>{
       router.push('/stop-watch')
   }}
 ])
@@ -21,23 +22,31 @@ const menuList = ref([
     <div class="slogan">
       <div class="logo">Time is</div>
       <span style="font-size: 38px; font-weight: normal">-
-      Thời gian chính xác cho bất kỳ múi giờ nào</span>
+      {{ $t("slogan") }}</span>
     </div>
     <section class="box-wrapper">
       <div class="col-1">
         <p v-for="item in menuList" :key="item._id" :class="{active: activeItem === item._id}">
-          <a @click="item.onClick">{{item.name}}</a>
+          <a @click="item.onClick">{{$t('menu.'+(item.name))}}</a>
         </p>
       </div>
       <div class="col-2">
-        <p><a>Something</a></p>
-        <p><a>Something</a></p>
-        <p><a>Something</a></p>
+        <p><a>{{$t("menu.something")}}</a></p>
+        <p><a>{{$t("menu.something")}}</a></p>
+        <p><a>{{$t("menu.something")}}</a></p>
       </div>
       <div class="col-3">
-        <p><a>Something</a></p>
-        <p><a>Something</a></p>
-        <p><a>Something</a></p>
+        <p><a>{{$t("menu.something")}}</a></p>
+        <p><a>{{$t("menu.something")}}</a></p>
+        <p><a>{{$t("menu.something")}}</a></p>
+      </div>
+      <div class="col-4">
+        <p>Language</p>
+        <select v-model="$i18n.locale" style="height: 50px;width: 200px">
+          <option v-for="(locale, i) in language" :key="`locale-${i}`" :value="locale.value">
+            {{ $t(locale.name) }}
+          </option>
+        </select>
       </div>
     </section>
   </div>
@@ -61,7 +70,7 @@ const menuList = ref([
   }
   .box-wrapper{
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-top: 20px;
     grid-gap: 40px;
     font-size: 18px;

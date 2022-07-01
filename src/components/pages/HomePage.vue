@@ -16,74 +16,13 @@ const seconds = computed(()=>{
   return formatTime(dayjs(dateTime.value).second())
 });
 const dayStt = computed(()=>{
-  let value = ''
-  switch (dayjs(dateTime.value).day()) {
-    case 0:
-      value = String("Chủ Nhật");
-      break
-    case 1:
-      value = String("Thứ Hai");
-      break
-    case 2:
-      value = String("Thứ Ba");
-      break
-    case 3:
-      value = String("Thứ Tư");
-      break
-    case 4:
-      value = String("Thứ Năm");
-      break
-    case 5:
-      value = String("Thứ Sáu");
-      break
-    case 6:
-      value = String("Thứ Bảy");
-  }
-  return value
+  return dayjs(dateTime.value).day()
 })
 const day = computed(()=>{
   return dayjs(dateTime.value).date()
 });
 const month = computed(() => {
-  let value = ''
-  switch (dayjs(dateTime.value).month()+1) {
-    case 1:
-      value = String("Một");
-      break
-    case 2:
-      value = String("Hai");
-      break
-    case 3:
-      value = String("Ba");
-      break
-    case 4:
-      value = String("Tư");
-      break
-    case 5:
-      value = String("Năm");
-      break
-    case 6:
-      value = String("Sáu");
-      break
-    case 7:
-      value = String("Bảy");
-      break
-    case 8:
-      value = String("Tám");
-      break
-    case 9:
-      value = String("Chín");
-      break
-    case 10:
-      value = String("Mười");
-      break
-    case 11:
-      value = String("Mười Một");
-      break
-    case 12:
-      value = String("Mười hai");
-  }
-  return value
+  return dayjs(dateTime.value).month()+1
 });
 const year = computed(()=>{
   return dayjs(dateTime.value).year()
@@ -113,14 +52,12 @@ onMounted(()=>{
 <template>
   <header-page :active-item="PAGES.HOME" @close-menu="closeMenu" :show-menu="showMenu"/>
   <content-panel :show-menu="showMenu" @open-menu="openMenu">
-    <div>
-      Thời gian ở Việt Nam hiện tại:
-    </div>
+    <p>{{ $t('title')}}:</p>
     <div class="clock">
       {{hours}}:{{minutes}}:{{seconds}}
     </div>
     <div style="text-align: right;font-size: 36px">
-      {{dayStt}}, {{day}} Tháng {{month}}, {{year}}
+      {{$t('time.day_stt.'+dayStt)}}, {{day}} {{ $t('time.month.'+month)}}, {{year}}
     </div>
   </content-panel>
 </template>
