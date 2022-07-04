@@ -1,6 +1,5 @@
 <script setup>
 import {ref,defineEmits} from 'vue'
-import ClockPanel from "@/components/Timer/ClockPanel";
 defineEmits(['setTimeSetup'])
 const totalTime = ref('000000')
 let count = 0
@@ -19,8 +18,7 @@ const setTime = number =>{
 
 <template>
   <div class="clock">
-    <clock-panel :hours="Number(totalTime[0]+totalTime[1])" :minutes="Number(totalTime[2]+totalTime[3])"
-                  :seconds="Number(totalTime[4]+totalTime[5])"/>
+    {{ totalTime[0] }}{{ totalTime[1]}}:{{ totalTime[2]}}{{ totalTime[3]}}:{{ totalTime[4]}}{{ totalTime[5]}}
   </div>
   <div style="display: grid;grid-template-columns: 10fr 2fr;grid-gap: 50px;margin-top: 50px;">
     <div class="number-wrapper">

@@ -1,11 +1,21 @@
 <script setup>
-import {defineProps} from "vue";
+import {defineProps,computed} from "vue";
 
-defineProps({
-  hours: Number,
-  minutes: Number,
-  seconds: Number,
-  milliseconds: String
+const props = defineProps({
+  totalMili: Number
+})
+const hours = computed(() => {
+  return Math.floor(props.totalMili / 1000 / 60 / 60)
+})
+const minutes = computed(() => {
+  return Math.floor(props.totalMili / 1000 / 60 % 60)
+})
+const seconds = computed(() => {
+  return Math.floor(props.totalMili / 1000 % 60)
+})
+const milliseconds = computed(() => {
+  return props.totalMili % 1000 <= 9 ? '00' + props.totalMili % 1000 :
+      (props.totalMili % 1000 <= 99 ? '0' + props.totalMili % 1000 : props.totalMili % 1000)
 })
 </script>
 

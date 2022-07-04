@@ -36,7 +36,7 @@ const beginSetInter = () =>{
     stopClock()
     lastTotalMili.value = 0
     newTotalMili.value = 0
-    status.value = 999
+    status.value = STATUSES.TIME_OUT
   }
   else {
     newTotalMili.value = dayjs(new Date()).diff(timeBegin)
