@@ -1,7 +1,7 @@
 <script setup>
 import {computed, onMounted, ref} from "vue";
 import dayjs from "dayjs"
-import {PAGES} from "@/components/Statuses";
+import {PAGES} from "@/components/Page";
 import HeaderPage from "@/components/HeaderPage";
 import ContentPanel from "@/components/ContentPanel";
 const dateTime = ref('');

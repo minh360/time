@@ -1,7 +1,7 @@
 <script setup>
 import {ref,defineProps} from "vue";
 import {useRouter} from 'vue-router';
-import {PAGES} from "@/components/Statuses";
+import {PAGES} from "@/components/Page";
 const router = useRouter()
 defineProps({
   activeItem: Number

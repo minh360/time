@@ -1,14 +1,14 @@
 <script setup>
-import TimerPanel from "@/components/TimerPanel";
+import TimerPanel from "@/components/Timer/TimerPanel";
 import {computed,ref} from "vue";
-import {STATUSES,OPTIONS} from "@/components/Statuses";
-import ScreenSetupTime from "@/components/ScreenSetupTime";
+import {STATUSES,OPTIONS} from "@/components/Timer/Statuses";
+import ScreenSetupTime from "@/components/Timer/ScreenSetupTime";
 import dayjs from "dayjs";
 const newTotalMili = ref(0)
-const beginTotalMili = ref(0)
-const timeBegin = ref(0)
-const setInter = ref(0)
 const lastTotalMili = ref(0)
+let beginTotalMili = 0
+let timeBegin = 0
+let setInter = 0
 const totalMili = computed(()=>{
   return lastTotalMili.value - newTotalMili.value
 })
@@ -23,12 +23,12 @@ const setTime = time =>{
   let minutes = Number(time.substring(2,4))
   let seconds = Number(time.substring(4,6))
   statusSetup.value = SETUP_TIME.DONE_SETUP
-  beginTotalMili.value = lastTotalMili.value = hours * (1000 * 60 * 60) + minutes * (1000 * 60) + seconds * 1000
+  beginTotalMili = lastTotalMili.value = hours * (1000 * 60 * 60) + minutes * (1000 * 60) + seconds * 1000
 }
 const setTimeBegin = () =>{
   stopClock()
   newTotalMili.value = 0
-  lastTotalMili.value = beginTotalMili.value
+  lastTotalMili.value = beginTotalMili
   status.value = STATUSES.NOT_STARTED
 }
 const beginSetInter = () =>{
@@ -39,17 +39,17 @@ const beginSetInter = () =>{
     status.value = 999
   }
   else {
-    newTotalMili.value = dayjs(new Date()).diff(timeBegin.value)
+    newTotalMili.value = dayjs(new Date()).diff(timeBegin)
   }
 }
 const beginClock = () => {
-  timeBegin.value = new Date()
+  timeBegin = new Date()
   lastTotalMili.value = totalMili.value
-  setInter.value = setInterval(beginSetInter, 0)
+  setInter = setInterval(beginSetInter, 0)
   status.value = STATUSES.STARTED
 }
 const stopClock = () => {
-  clearInterval(setInter.value)
+  clearInterval(setInter)
   status.value = STATUSES.PAUSE
 }
 </script>
@@ -59,7 +59,7 @@ const stopClock = () => {
     <screen-setup-time @set-time-setup="setTime($event)"/>
   </section>
   <section v-else-if="statusSetup === SETUP_TIME.DONE_SETUP">
-    <timer-panel :status="status" :lastTotalMili="lastTotalMili" :newTotalMili="newTotalMili"
+    <timer-panel :status="status" :total-mili="totalMili"
                  @set-time="setTimeBegin" @begin-clock="beginClock" @stop-clock="stopClock" :option="OPTIONS.COUNTDOWN"/>
   </section>
 </template>

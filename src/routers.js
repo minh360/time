@@ -1,5 +1,5 @@
-import HomePage from '@/components/pages/HomePage'
-import TimerPage from '@/components/pages/TimerPage'
+import HomePage from '@/components/Home/HomePage'
+import TimerPage from '@/components/Timer/TimerPage'
 export default [
     {
         path: '/',

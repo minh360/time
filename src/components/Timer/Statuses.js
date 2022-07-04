@@ -1,7 +1,3 @@
-export const PAGES = {
-    HOME: 1,
-    STOP_WATCH: 2
-}
 export const STATUSES = {
     NOT_STARTED: 0,
     STARTED: 1,

@@ -1,10 +1,11 @@
 <script setup>
 import HeaderPage from "@/components/HeaderPage";
 import {ref} from "vue";
-import {PAGES,OPTIONS} from "@/components/Statuses";
+import {PAGES} from "@/components/Page";
+import {OPTIONS} from '@/components/Timer/Statuses'
 import ContentPanel from "@/components/ContentPanel";
-import StopwatchPanel from "@/components/StopwatchPanel";
-import CountdownPanel from "@/components/CountdownPanel";
+import StopwatchPanel from "@/components/Timer/StopwatchPanel";
+import CountdownPanel from "@/components/Timer/CountdownPanel";
 const showMenu = ref(false)
 const closeMenu = () =>{
   showMenu.value = false

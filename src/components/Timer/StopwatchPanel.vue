@@ -1,12 +1,12 @@
 <script setup>
-import TimerPanel from "@/components/TimerPanel";
+import TimerPanel from "@/components/Timer/TimerPanel";
 import {computed, onMounted,ref} from "vue";
-import {STATUSES,OPTIONS} from "@/components/Statuses";
+import {STATUSES,OPTIONS} from "@/components/Timer/Statuses";
 import dayjs from "dayjs";
 const newTotalMili = ref(0)
 const lastTotalMili = ref(0)
 const status = ref(STATUSES.NOT_STARTED)
-const setInter = ref(0)
+let setInter = 0
 const totalMili = computed(()=>{
   return lastTotalMili.value + newTotalMili.value
 })
@@ -19,13 +19,13 @@ const setTime = () => {
 const beginClock = () => {
   let timeBegin = new Date()
   lastTotalMili.value = totalMili.value
-  setInter.value = setInterval(() => {
+  setInter = setInterval(() => {
     newTotalMili.value = dayjs(new Date()).diff(timeBegin)
   }, 0)
   status.value = STATUSES.STARTED
 }
 const stopClock = () => {
-  clearInterval(setInter.value)
+  clearInterval(setInter)
   status.value = STATUSES.PAUSE
 }
 onMounted(() => {
@@ -34,7 +34,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <timer-panel :status="status" :lastTotalMili="lastTotalMili" :newTotalMili="newTotalMili"
+  <timer-panel :status="status" :total-mili="totalMili"
               @set-time="setTime" @begin-clock="beginClock" @stop-clock="stopClock" :option="OPTIONS.STOPWATCH"/>
 </template>
 
