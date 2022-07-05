@@ -1,31 +1,43 @@
-<script setup>
-import {defineProps,defineEmits} from "vue";
+<script>
 import {STATUSES} from "@/components/Timer/Statuses";
-defineProps({
-  status: Number
-})
-const emits = defineEmits(['beginClock','stopClock','setTime'])
+import {useI18n} from "vue-i18n";
+export default {
+  name: 'ButtonPanel',
+  props: {
+    status: Number
+  },
+  emits: ['beginClock','stopClock','setTime'],
+  setup(props,{emit}){
+    const {t} = useI18n()
+    const renderButtonContent = {
+      [STATUSES.NOT_STARTED]: () => <button style="background-color: chartreuse"
+                                            onClick={() => emit('beginClock')}>{t('time.begin')}</button>,
+      [STATUSES.STARTED]: () => <button style="background-color: chartreuse"
+                                        onClick={() => emit('stopClock')}> {t('time.pause')}</button>,
+      [STATUSES.PAUSE]: () => <button style="background-color: deepskyblue"
+                                      onClick={() => emit('beginClock')}> {t('time.continue')}</button>,
+      [STATUSES.TIME_OUT]: () => <div style="width: 300px"></div>
+    }
+    return ()=>
+        <div class="btn">
+          {renderButtonContent[props.status]()}
+          <button style="background-color: red" onClick={()=>emit('setTime')}>{ t('time.clear') }</button>
+        </div>
+  }
+}
 </script>
-<template>
-  <button v-if="status === STATUSES.NOT_STARTED" style="background-color: chartreuse" @click="emits('beginClock')">
-    {{ $t('time.begin') }}
-  </button>
-  <button v-else-if="status === STATUSES.STARTED" style="background-color: chartreuse" @click="emits('stopClock')">
-    {{ $t('time.pause') }}
-  </button>
-  <button v-else-if="status === STATUSES.PAUSE" style="background-color: deepskyblue" @click="emits('beginClock')">
-    {{ $t('time.continue') }}
-  </button>
-  <div v-else style="width: 300px"></div>
-  <button style="background-color: red" @click="emits('setTime')">{{ $t('time.clear') }}</button>
-</template>
-<style scoped>
-button {
-  width: 300px;
-  height: 100px;
-  font-size: 50px;
-  border: 5px solid black;
-  border-radius: 25px;
-  cursor: pointer;
+<style lang="scss" scoped>
+.btn {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-around;
+  button {
+    width: 300px;
+    height: 100px;
+    font-size: 50px;
+    border: 5px solid black;
+    border-radius: 25px;
+    cursor: pointer;
+  }
 }
 </style>

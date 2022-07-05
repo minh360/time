@@ -1,32 +1,37 @@
-<script setup>
-import {defineProps,computed} from "vue";
+<script>
+import {computed} from "vue";
+export default {
+  name: 'ClockPanel',
+  props: {
+    totalMilli: Number
+  },
+  setup(props){
+    const hours = computed(() => {
+      return Math.floor(props.totalMilli / 1000 / 60 / 60)
+    })
+    const minutes = computed(() => {
+      return Math.floor(props.totalMilli / 1000 / 60 % 60)
+    })
+    const seconds = computed(() => {
+      return Math.floor(props.totalMilli / 1000 % 60)
+    })
+    const milliseconds = computed(() => {
+      return props.totalMilli % 1000 <= 9 ? '00' + props.totalMilli % 1000 :
+          (props.totalMilli % 1000 <= 99 ? '0' + props.totalMilli % 1000 : props.totalMilli % 1000)
+    })
+    return () =>
+        <div>
+          <div className="clock">
+            {hours.value > 9 ? hours.value : '0' + hours.value}:{minutes.value > 9 ? minutes.value : '0' + minutes.value}:{seconds.value > 9 ? seconds.value : '0' + seconds.value}
+          </div>
+          <div className="milliseconds" v-show={milliseconds.value}>
+            {milliseconds.value}
+          </div>
+        </div>
+  }
+}
 
-const props = defineProps({
-  totalMili: Number
-})
-const hours = computed(() => {
-  return Math.floor(props.totalMili / 1000 / 60 / 60)
-})
-const minutes = computed(() => {
-  return Math.floor(props.totalMili / 1000 / 60 % 60)
-})
-const seconds = computed(() => {
-  return Math.floor(props.totalMili / 1000 % 60)
-})
-const milliseconds = computed(() => {
-  return props.totalMili % 1000 <= 9 ? '00' + props.totalMili % 1000 :
-      (props.totalMili % 1000 <= 99 ? '0' + props.totalMili % 1000 : props.totalMili % 1000)
-})
 </script>
-
-<template>
-  <div class="clock" >
-    {{ hours > 9 ? hours : '0' + hours }}:{{ minutes > 9 ? minutes : '0' + minutes }}:{{ seconds > 9 ? seconds : '0' + seconds }}
-  </div>
-  <div class="milliseconds" v-show="milliseconds">
-    {{ milliseconds }}
-  </div>
-</template>
 
 <style lang="scss" scoped>
 .milliseconds, .clock{

@@ -1,56 +1,70 @@
-<script setup>
-import {ref,defineProps} from "vue";
+<script>
+import {ref} from "vue";
 import {useRouter} from 'vue-router';
 import {PAGES} from "@/components/Page";
-const router = useRouter()
-defineProps({
-  activeItem: Number
-})
-const language = ref([{name:'English',value:'en'},{name:'Vietnamese',value:'vi'}])
-const menuList = ref([
-  {_id: PAGES.HOME, name: 'exact_time_now', onClick: ()=>{
-      router.push({name: 'home'})
-  }},
-  {_id: PAGES.STOP_WATCH, name: 'timer', onClick: ()=>{
-      router.push('/timer')
-  }}
-])
-</script>
-
-<template>
-  <div class="menu-wrapper">
-    <div class="slogan">
-      <div class="logo">Time is</div>
-      <span style="font-size: 38px; font-weight: normal">-
-      {{ $t("slogan") }}</span>
-    </div>
-    <section class="box-wrapper">
+import {useI18n} from "vue-i18n";
+import createI18n from '@/util'
+export default {
+  name: 'MenuPanel',
+  props: {
+    activeItem: Number
+  },
+  setup(props){
+    const router = useRouter()
+    const {t} = useI18n()
+    const language = ref([{name:'English',value:'en'},{name:'Vietnamese',value:'vi'}])
+    const menuList = ref([
+      {_id: PAGES.HOME, name: 'exact_time_now', onClick: ()=>{
+          router.push({name: 'home'})
+        }},
+      {_id: PAGES.STOP_WATCH, name: 'timer', onClick: ()=>{
+          router.push('/timer')
+        }}
+    ])
+    const renderSlogan = () =>
+        <div class="slogan">
+          <div class="logo">Time is</div>
+          <span style="font-size: 38px; font-weight: normal">- {t("slogan")}</span>
+        </div>
+    const renderMenuColumn1 = ()=>
       <div class="col-1">
-        <p v-for="item in menuList" :key="item._id" :class="{active: activeItem === item._id}">
-          <a @click="item.onClick">{{$t('menu.'+(item.name))}}</a>
-        </p>
+        {menuList.value.map((item)=>(
+            <p class={{active: props.activeItem === item._id}}>
+              <a onClick={item.onClick}>{t('menu.'+ item.name)}</a>
+            </p>
+            ))}
       </div>
-      <div class="col-2">
-        <p><a>{{$t("menu.something")}}</a></p>
-        <p><a>{{$t("menu.something")}}</a></p>
-        <p><a>{{$t("menu.something")}}</a></p>
+    const renderMenuColumn23 = ()=>
+      <div class="col-2_3">
+        <p><a>{t("menu.something")}</a></p>
+        <p><a>{t("menu.something")}</a></p>
+        <p><a>{t("menu.something")}</a></p>
       </div>
-      <div class="col-3">
-        <p><a>{{$t("menu.something")}}</a></p>
-        <p><a>{{$t("menu.something")}}</a></p>
-        <p><a>{{$t("menu.something")}}</a></p>
-      </div>
+    const renderMenuColumn4 = ()=>
       <div class="col-4">
-        <p>{{ $t('language')}}</p>
-        <select v-model="$i18n.locale" style="height: 50px;width: 200px">
-          <option v-for="locale in language" :key="locale.name" :value="locale.value">
-            {{ $t(locale.name) }}
-          </option>
+        <p>{t('language')}</p>
+        <select v-model={createI18n.global.locale.value} style="height: 50px;width: 200px">
+          {language.value.map((locale)=>(
+              <option value={locale.value}>
+                {t(locale.name) }
+              </option>
+              ))}
         </select>
       </div>
-    </section>
-  </div>
-</template>
+    return () =>
+        <div class="menu-wrapper">
+          {renderSlogan()}
+          <section class="box-wrapper">
+            {renderMenuColumn1()}
+            {renderMenuColumn23()}
+            {renderMenuColumn23()}
+            {renderMenuColumn4()}
+          </section>
+        </div>
+  },
+}
+
+</script>
 
 <style lang="scss" scoped>
 .menu-wrapper{
@@ -74,7 +88,7 @@ const menuList = ref([
     margin-top: 20px;
     grid-gap: 40px;
     font-size: 18px;
-    .col-1,.col-2,.col-3{
+    .col-1,.col-2_3{
       p{
         margin: 0 0 10px;
         height: 28px;

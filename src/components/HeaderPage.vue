@@ -1,18 +1,24 @@
-<script setup>
-import {defineProps,defineEmits} from "vue";
+<script>
 import MenuPanel from "@/components/MenuPanel";
-defineProps({
-  activeItem: Number,
-  showMenu: Boolean
-})
-defineEmits(['closeMenu'])
+export default {
+  name: 'HeaderPage',
+  props: {
+    activeItem: Number,
+    showMenu: Boolean
+  },
+  emits: ['closeMenu'],
+  components:{
+    MenuPanel
+  },
+  setup(props,{ emit }){
+    return () =>
+      <div class="menu">
+        <div class="btn-close" onClick={()=>emit('closeMenu')} v-show={props.showMenu}>&times;</div>
+        <menu-panel class="box" activeItem={props.activeItem}/>
+      </div>
+  }
+}
 </script>
-<template>
-  <div class="menu">
-    <div class="btn-close" @click="$emit('closeMenu')" v-show="showMenu">&times;</div>
-    <menu-panel class="box" :activeItem="activeItem"/>
-  </div>
-</template>
 
 <style lang="scss" scoped>
 .menu{

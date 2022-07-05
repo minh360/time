@@ -1,23 +1,27 @@
-<script setup>
-import {computed,defineEmits,defineProps} from "vue";
-defineEmits(['openMenu'])
-const props = defineProps({
-  showMenu: Boolean
-})
-const mainStyle = computed(()=>({
-  transform: `translateY(${props.showMenu ? '300px' : '0px'})`
-}))
-</script>
-<template>
-  <div class="main-wrapper" :style="mainStyle">
-    <div class="top">
-      <div class="logo">Time.is</div>
-      <div style="font-size: 28px;height: 35px;width: 28px;cursor: pointer" @click="$emit('openMenu')" >☰</div>
-    </div>
-    <slot/>
-  </div>
-</template>
+<script>
+import {computed} from "vue";
+export default {
+  name: 'ContentPanel',
+  props: {
+    showMenu: Boolean
+  },
+  emits: ['openMenu'],
+  setup(props,ctx){
+    const mainStyle = computed(()=> ({
+      transform: `translateY(${props.showMenu ? '300px' : '0px'})`
+    }))
+    return () =>
+      <div class="main-wrapper" style={mainStyle.value}>
+        <div class="top">
+          <div class="logo">Time.is</div>
+          <div style="font-size: 28px;height: 35px;width: 28px;cursor: pointer" onClick={()=>ctx.emit('openMenu')} >☰</div>
+        </div>
+        {ctx.slots.default && ctx.slots.default()}
+      </div>
+  }
+}
 
+</script>
 <style lang="scss" scoped>
 .main-wrapper{
   transition: 0.5s ease;
