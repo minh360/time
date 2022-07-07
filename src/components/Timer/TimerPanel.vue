@@ -4,7 +4,7 @@ import {OPTIONS} from "@/components/Timer/Statuses";
 import ButtonPanel from "@/components/Timer/ButtonPanel";
 import ClockPanel from "@/components/Timer/ClockPanel";
 defineProps({
-  totalMili: Number,
+  totalMilli: Number,
   status: Number,
   option: Number
 })
@@ -12,8 +12,8 @@ const emits = defineEmits(['setTime','stopClock','beginClock'])
 </script>
 
 <template>
-  <div :class="{blinker: totalMili === 0 && option === OPTIONS.COUNTDOWN}">
-    <clock-panel :totalMili="totalMili"/>
+  <div :class="{blinker: totalMilli === 0 && option === OPTIONS.COUNTDOWN}">
+    <clock-panel :totalMilli="totalMilli"/>
   </div>
   <div class="btn">
     <button-panel :status="status" @set-time="emits('setTime')"
